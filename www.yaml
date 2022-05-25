@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dns
+  name: tixwaves
   namespace: dns
 spec:
   replicas: 1
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: dns
-        image: ghcr.io/jwklijnsma/powerdns-resolver
+        image: ghcr.io/jwklijnsma/webserverek
         imagePullPolicy: Always
         ports:
         - containerPort: 80
