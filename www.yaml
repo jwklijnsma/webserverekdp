@@ -1,0 +1,39 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dns
+  namespace: dns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dns
+  template:
+    metadata:
+      labels:
+        app: dns
+    spec:
+      containers:
+      - name: dns
+        image: ghcr.io/jwklijnsma/powerdns-resolver
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dns
+  namespace: dns
+spec:
+  ports:
+  - name: dnstcp
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: dns
+  type: LoadBalancer
