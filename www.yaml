@@ -3,19 +3,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tixwaves
-  namespace: dns
+  namespace: tixwaves
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: dns
+      app: tixwaves
   template:
     metadata:
       labels:
-        app: dns
+        app: tixwaves
     spec:
       containers:
-      - name: dns
+      - name: tixwaves
         image: ghcr.io/jwklijnsma/webserverek
         imagePullPolicy: Always
         ports:
@@ -26,14 +26,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: dns
-  namespace: dns
+  name: tixwaves
+  namespace: tixwaves
 spec:
   ports:
-  - name: dnstcp
+  - name: http
     port: 80
     protocol: TCP
     targetPort: 80
   selector:
-    app: dns
-  type: LoadBalancer
+    app: tixwaves
+  type: 
